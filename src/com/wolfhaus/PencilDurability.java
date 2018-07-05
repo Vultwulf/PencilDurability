@@ -76,7 +76,8 @@ public class PencilDurability {
     }
 
     /**
-     * Method to write a cha
+     * Method to determine if a character can be written, and then
+     * reduce the durability.
      * @param character char containing the letter to be written.
      */
     private boolean processCharacter(char character) {
@@ -85,20 +86,18 @@ public class PencilDurability {
         boolean isCharacterWritten = false;
 
         if(character == ' ' || character == '\n') {
-            // If this is a space, don't reduce point durability.
+            // If this is a space or newline, don't reduce point durability.
             isCharacterWritten = true;
         } else if(isUpperCase) {
             if (this.curPointDurability >= 2) {
                 // Deduct two points of durability.
                 this.curPointDurability -= 2;
-
                 isCharacterWritten = true;
             }
         } else {
             if (this.curPointDurability >= 1) {
                 // Deduct one points of durability.
                 this.curPointDurability -= 1;
-
                 isCharacterWritten = true;
             }
         }
@@ -119,6 +118,7 @@ public class PencilDurability {
 
     /**
      * Method to erase text
+     * @param string string containing the word to be erased
      */
     public void erase(String string) {
         eraseWithEdit(string, "");
@@ -126,6 +126,8 @@ public class PencilDurability {
 
     /**
      * Method to erase text, with the option of a replacement word
+     * @param string string containing the word to be erased
+     * @param newString string containing the word to replace string
      */
     public void eraseWithEdit(String string, String newString) {
         // Find the first character of where last occurrence of a string is in the text.
@@ -145,7 +147,7 @@ public class PencilDurability {
                 }
             }
 
-            // If the new string exists, replace it on the paper,
+            // If the new string exists, replace it on the paper.
             if (newString.length() > 0) {
                 int j = 0;
                 // Insert the new string into the old string's place

@@ -46,7 +46,7 @@ public class PencilDurabilityTest {
      * text to write. This pencil has enough durability.
      */
     @Test
-    public void testPencilDurabilityAfterWriteSeaShellsWithDurability() {
+    public void testPencilDurabilityAfterWriteSeaShells() {
         // Instantiate a new pencil with 5000 point durability.
         this.pencilDurability = new PencilDurability(5000, 10, 10);
 
