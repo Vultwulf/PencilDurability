@@ -64,37 +64,46 @@ public class PencilDurability {
     public void write(String text) {
         // Check durability before writing the letter to the paper.
         for (int i = 0; i < text.length(); i++) {
-            // Determine if this letter is upper case
-            boolean isUpperCase = Character.isUpperCase(text.charAt(i));
-
-            if(text.charAt(i) == ' ') {
-                // If this is a space, don't reduce point durability.
+            if(processCharacter(text.charAt(i))) {
+                // This character was written.
                 this.paper += text.charAt(i);
-            }
-            else if(isUpperCase) {
-                if (this.curPointDurability >= 2) {
-                    // Append the next letter.
-                    this.paper += text.charAt(i);
-
-                    // Deduct two points of durability.
-                    this.curPointDurability -= 2;
-                } else {
-                    // Append a space.
-                    this.paper += ' ';
-                }
             } else {
-                if (this.curPointDurability >= 1) {
-                    // Append the next letter.
-                    this.paper += text.charAt(i);
+                // A space was written.
+                this.paper += " ";
+            }
 
-                    // Deduct one points of durability.
-                    this.curPointDurability -= 1;
-                } else {
-                    // Append a space.
-                    this.paper += ' ';
-                }
+        }
+    }
+
+    /**
+     * Method to write a cha
+     * @param character char containing the letter to be written.
+     */
+    private boolean processCharacter(char character) {
+        // Determine if this letter is upper case
+        boolean isUpperCase = Character.isUpperCase(character);
+        boolean isCharacterWritten = false;
+
+        if(character == ' ') {
+            // If this is a space, don't reduce point durability.
+            isCharacterWritten = true;
+        } else if(isUpperCase) {
+            if (this.curPointDurability >= 2) {
+                // Deduct two points of durability.
+                this.curPointDurability -= 2;
+
+                isCharacterWritten = true;
+            }
+        } else {
+            if (this.curPointDurability >= 1) {
+                // Deduct one points of durability.
+                this.curPointDurability -= 1;
+
+                isCharacterWritten = true;
             }
         }
+
+        return isCharacterWritten;
     }
 
     /**
@@ -112,6 +121,13 @@ public class PencilDurability {
      * Method to erase text
      */
     public void erase(String string) {
+        eraseWithEdit(string, "");
+    }
+
+    /**
+     * Method to erase text, with the option of a replacement word
+     */
+    public void eraseWithEdit(String string, String newString) {
         // Find the first character of where last occurrence of a string is in the text.
         int charIndex = this.paper.lastIndexOf(string);
 
@@ -124,6 +140,18 @@ public class PencilDurability {
             if(eraserDurability > 0) {
                 editPaper[i] = ' ';
                 this.eraserDurability--;
+            }
+        }
+
+        // If the new string exists, replace it on the paper,
+        if(newString.length() > 0) {
+            int j = 0;
+            // Insert the new string into the old string's place
+            for (int i = charIndex; i < charIndex + string.length(); i++) {
+                if(processCharacter(newString.charAt(j))) {
+                    editPaper[i] = newString.charAt(j);
+                }
+                j++;
             }
         }
 
