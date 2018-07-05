@@ -83,4 +83,28 @@ public class PencilDurabilityTest {
         assertEquals(text + text, this.pencilDurability.paper);
     }
 
+    /**
+     * Test sharpening to continue writing after the pencil is dull with no more length.
+     */
+    @Test
+    public void testPencilWriteSharpenWriteWithDurabilityAndNoLength() {
+        // Instantiate a new pencil with 5 point durability.
+        this.pencilDurability = new PencilDurability(22, 0);
+
+        // Sample text to write
+        String text = "She sells sea shells sea s";
+
+        // Instruct the pencil to write the sample text
+        this.pencilDurability.write(text);
+
+        // Sharpen the pencil
+        this.pencilDurability.sharpen();
+
+        // Instruct the pencil to write the sample text.
+        this.pencilDurability.write(text);
+
+        // The sample text and a second sample text all spaces appears on the paper
+        assertEquals("She sells sea shells sea s                          "
+                , this.pencilDurability.paper);
+    }
 }
