@@ -12,4 +12,17 @@ package com.wolfhaus;
  * @since   2018-07-05
  */
 public class PencilDurability {
+
+    /**
+     * The paper the pencil will write text on.
+     */
+    public String paper;
+
+    /**
+     * Method to write text on a paper
+     * @param text string containing text to be written to the paper.
+     */
+    public void write(String text) {
+        this.paper = text;
+    }
 }
