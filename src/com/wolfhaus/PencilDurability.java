@@ -147,9 +147,13 @@ public class PencilDurability {
         if(newString.length() > 0) {
             int j = 0;
             // Insert the new string into the old string's place
-            for (int i = charIndex; i < charIndex + string.length(); i++) {
+            for (int i = charIndex; i < charIndex + newString.length(); i++) {
                 if(processCharacter(newString.charAt(j))) {
-                    editPaper[i] = newString.charAt(j);
+                    if(editPaper[i] == ' ') {
+                        editPaper[i] = newString.charAt(j);
+                    } else {
+                        editPaper[i] = '@';
+                    }
                 }
                 j++;
             }

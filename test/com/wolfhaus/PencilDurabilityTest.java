@@ -216,7 +216,7 @@ public class PencilDurabilityTest {
     @Test
     public void testPencilEraseWoodchuckReplaceChuckwood() {
         // Instantiate a new pencil.
-        this.pencilDurability = new PencilDurability(5, 10, 10);
+        this.pencilDurability = new PencilDurability(500, 10, 10);
 
         // Sample text to write
         String text = "How much wood would a woodchuck chuck if a woodchuck could chuck wood?";
@@ -227,6 +227,27 @@ public class PencilDurabilityTest {
 
         // Instruct the pencil to erase the string "woodchuck" and insert in "chuckwood"
         this.pencilDurability.eraseWithEdit("woodchuck", "chuckwood");
+
+        assertEquals(expectedText, this.pencilDurability.paper);
+    }
+
+    /**
+     * Test the erase with edit functionality with collision
+     */
+    @Test
+    public void testPencilEraseAppleReplaceArtichoke() {
+        // Instantiate a new pencil.
+        this.pencilDurability = new PencilDurability(500, 10, 10);
+
+        // Sample text to write
+        String text = "An apple a day keeps the doctor away";
+        String expectedText = "An artich@k@ay keeps the doctor away";
+
+        // Instruct the pencil to write the sample text
+        this.pencilDurability.write(text);
+
+        // Instruct the pencil to erase the string "woodchuck" and insert in "chuckwood"
+        this.pencilDurability.eraseWithEdit("apple", "artichoke");
 
         assertEquals(expectedText, this.pencilDurability.paper);
     }
