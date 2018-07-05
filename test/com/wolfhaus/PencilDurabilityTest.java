@@ -42,6 +42,25 @@ public class PencilDurabilityTest {
     }
 
     /**
+     * Test to determine the amount of durability used with the given
+     * text to write. This pencil has enough durability.
+     */
+    @Test
+    public void testPencilDurabilityAfterWriteSeaShellsWithDurability() {
+        // Instantiate a new pencil with 5000 point durability.
+        this.pencilDurability = new PencilDurability(5000, 10, 10);
+
+        // Sample text to write
+        String text = "She sells sea shells sea shells down by the sea shore";
+
+        // Instruct the pencil to write the sample text.
+        this.pencilDurability.write(text);
+
+        // The sample text should be the only text currently on the paper.
+        assertEquals(4956, this.pencilDurability.curPointDurability);
+    }
+
+    /**
      * Try to write "Text" with one point durability short.
      */
     @Test
@@ -148,27 +167,6 @@ public class PencilDurabilityTest {
      * Make sure a word can be erased
      */
     @Test
-    public void testPencilEraseChuck() {
-        // Instantiate a new pencil.
-        this.pencilDurability = new PencilDurability(5000, 10, 10);
-
-        // Sample text to write
-        String text = "How much wood would a woodchuck chuck if a woodchuck could chuck wood?";
-        String newText = "How much wood would a woodchuck chuck if a woodchuck could       wood?";
-
-        // Instruct the pencil to write the sample text
-        this.pencilDurability.write(text);
-
-        // Instruct the pencil to erase the string "chuck"
-        this.pencilDurability.erase("chuck");
-
-        assertEquals(newText, this.pencilDurability.paper);
-    }
-
-    /**
-     * Make sure a word can be erased
-     */
-    @Test
     public void testPencilEraseNonexistentWord() {
         // Instantiate a new pencil.
         this.pencilDurability = new PencilDurability(5000, 10, 10);
@@ -182,6 +180,27 @@ public class PencilDurabilityTest {
 
         // Instruct the pencil to erase the string "chuck"
         this.pencilDurability.erase("blueberry");
+
+        assertEquals(newText, this.pencilDurability.paper);
+    }
+
+    /**
+     * Make sure a word can be erased
+     */
+    @Test
+    public void testPencilEraseChuck() {
+        // Instantiate a new pencil.
+        this.pencilDurability = new PencilDurability(5000, 10, 10);
+
+        // Sample text to write
+        String text = "How much wood would a woodchuck chuck if a woodchuck could chuck wood?";
+        String newText = "How much wood would a woodchuck chuck if a woodchuck could       wood?";
+
+        // Instruct the pencil to write the sample text
+        this.pencilDurability.write(text);
+
+        // Instruct the pencil to erase the string "chuck"
+        this.pencilDurability.erase("chuck");
 
         assertEquals(newText, this.pencilDurability.paper);
     }
@@ -216,17 +235,17 @@ public class PencilDurabilityTest {
     @Test
     public void testPencilEraseWoodchuckWithoutEnoughDurability() {
         // Instantiate a new pencil.
-        this.pencilDurability = new PencilDurability(5000, 10, 8);
+        this.pencilDurability = new PencilDurability(5000, 10, 3);
 
         // Sample text to write
-        String text = "How much wood would a woodchuck chuck if a woodchuck could chuck wood?";
-        String expectedText = "How much wood would a woodchuck chuck if a w         could chuck wood?";
+        String text = "Buffalo Bill";
+        String expectedText = "Buffalo B   ";
 
         // Instruct the pencil to write the sample text
         this.pencilDurability.write(text);
 
         // Instruct the pencil to erase the string "woodchuck"
-        this.pencilDurability.erase("woodchuck");
+        this.pencilDurability.erase("Bill");
 
         assertEquals(expectedText, this.pencilDurability.paper);
     }
