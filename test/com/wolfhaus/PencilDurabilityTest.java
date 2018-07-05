@@ -78,6 +78,25 @@ public class PencilDurabilityTest {
     }
 
     /**
+     * Test to determine the amount of durability remaining with one lower letter.
+     * This pencil has enough durability.
+     */
+    @Test
+    public void testPencilDurabilityAfterLowerLetter() {
+        // Instantiate a new pencil with 5000 point durability.
+        this.pencilDurability = new PencilDurability(5000, 10, 10);
+
+        // Sample text to write
+        String text = "b";
+
+        // Instruct the pencil to write the sample text.
+        this.pencilDurability.write(text);
+
+        // The sample text should be the only text currently on the paper.
+        assertEquals(4999, this.pencilDurability.curPointDurability);
+    }
+
+    /**
      * Make sure space characters don't use durability.
      */
     @Test
