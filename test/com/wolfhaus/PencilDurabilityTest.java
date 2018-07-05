@@ -79,6 +79,24 @@ public class PencilDurabilityTest {
     }
 
     /**
+     * Make sure newline characters don't use durability
+     */
+    @Test
+    public void testPencilDuribilityNewlineCharacter() {
+        // Instantiate a new pencil.
+        this.pencilDurability = new PencilDurability(4, 10, 10);
+
+        // Sample text to write
+        String text = "\n";
+
+        // Instruct the pencil to write the sample text.
+        this.pencilDurability.write(text);
+
+        // The sample text should be the only text currently on the paper.
+        assertEquals(4, this.pencilDurability.curPointDurability);
+    }
+
+    /**
      * Try to write "Text" with one point durability short.
      */
     @Test

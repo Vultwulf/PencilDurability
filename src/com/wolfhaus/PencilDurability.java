@@ -84,7 +84,7 @@ public class PencilDurability {
         boolean isUpperCase = Character.isUpperCase(character);
         boolean isCharacterWritten = false;
 
-        if(Character.isWhitespace(character)) {
+        if(character == ' ' || character == '\n') {
             // If this is a space, don't reduce point durability.
             isCharacterWritten = true;
         } else if(isUpperCase) {
