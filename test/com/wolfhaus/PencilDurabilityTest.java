@@ -287,6 +287,27 @@ public class PencilDurabilityTest {
     }
 
     /**
+     * Test the eraser durability
+     */
+    @Test
+    public void testPencilEraserDurabilityReduction() {
+        // Instantiate a new pencil.
+        this.pencilDurability = new PencilDurability(5000, 10, 10);
+
+        // Sample text to write
+        String text = "Buffalo Bill";
+        String expectedText = "Buffalo B   ";
+
+        // Instruct the pencil to write the sample text
+        this.pencilDurability.write(text);
+
+        // Instruct the pencil to erase the string "woodchuck"
+        this.pencilDurability.erase("Bill");
+
+        assertEquals(6, this.pencilDurability.eraserDurability);
+    }
+
+    /**
      * Test the erase with edit functionality
      */
     @Test
