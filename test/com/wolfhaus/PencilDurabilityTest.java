@@ -99,6 +99,27 @@ public class PencilDurabilityTest {
     }
 
     /**
+     * Make sure the current point durability is reset.
+     */
+    @Test
+    public void testPencilSharpenPointDurabilityReset() {
+        // Instantiate a new pencil.
+        this.pencilDurability = new PencilDurability(22, 10);
+
+        // Sample text to write
+        String text = "She sells sea shells s";
+
+        // Instruct the pencil to write the sample text
+        this.pencilDurability.write(text);
+
+        // Sharpen the pencil
+        this.pencilDurability.sharpen();
+
+        // The sample text x2 should be the only text currently on the paper
+        assertEquals(22, this.pencilDurability.curPointDurability);
+    }
+
+    /**
      * Test sharpening to continue writing after the pencil is dull with no more length.
      */
     @Test
