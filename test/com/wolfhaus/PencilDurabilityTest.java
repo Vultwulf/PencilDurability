@@ -40,7 +40,7 @@ public class PencilDurabilityTest {
     }
 
     /**
-     * Test to determine the amount of durability used with the given
+     * Test to determine the amount of durability remaining with the given
      * text to write. This pencil has enough durability.
      */
     @Test
@@ -59,7 +59,26 @@ public class PencilDurabilityTest {
     }
 
     /**
-     * Make sure space characters don't use durability
+     * Test to determine the amount of durability remaining with one capital letter.
+     * This pencil has enough durability.
+     */
+    @Test
+    public void testPencilDurabilityAfterCapitalLetter() {
+        // Instantiate a new pencil with 5000 point durability.
+        this.pencilDurability = new PencilDurability(5000, 10, 10);
+
+        // Sample text to write
+        String text = "B";
+
+        // Instruct the pencil to write the sample text.
+        this.pencilDurability.write(text);
+
+        // The sample text should be the only text currently on the paper.
+        assertEquals(4998, this.pencilDurability.curPointDurability);
+    }
+
+    /**
+     * Make sure space characters don't use durability.
      */
     @Test
     public void testPencilDurabilitySpaceCharacter() {
@@ -209,10 +228,10 @@ public class PencilDurabilityTest {
         String text = "How much wood would a woodchuck chuck if a woodchuck could chuck wood?";
         String newText = "How much wood would a woodchuck chuck if a woodchuck could chuck wood?";
 
-        // Instruct the pencil to write the sample text
+        // Instruct the pencil to write the sample text.
         this.pencilDurability.write(text);
 
-        // Instruct the pencil to erase the string "chuck"
+        // Instruct the pencil to erase the string "blueberry"
         this.pencilDurability.erase("blueberry");
 
         assertEquals(newText, this.pencilDurability.paper);
@@ -230,7 +249,7 @@ public class PencilDurabilityTest {
         String text = "How much wood would a woodchuck chuck if a woodchuck could chuck wood?";
         String newText = "How much wood would a woodchuck chuck if a woodchuck could       wood?";
 
-        // Instruct the pencil to write the sample text
+        // Instruct the pencil to write the sample text.
         this.pencilDurability.write(text);
 
         // Instruct the pencil to erase the string "chuck"
@@ -251,7 +270,7 @@ public class PencilDurabilityTest {
         String text = "How much wood would a woodchuck chuck if a woodchuck could chuck wood?";
         String expectedText = "How much wood would a woodchuck chuck if a wood      could       wood?";
 
-        // Instruct the pencil to write the sample text
+        // Instruct the pencil to write the sample text.
         this.pencilDurability.write(text);
 
         // Instruct the pencil to erase the string "chuck".
@@ -295,7 +314,7 @@ public class PencilDurabilityTest {
         // Sample text to write.
         String text = "Buffalo Bill";
 
-        // Instruct the pencil to write the sample text
+        // Instruct the pencil to write the sample text.
         this.pencilDurability.write(text);
 
         // Instruct the pencil to erase the string "Bill"
@@ -312,11 +331,11 @@ public class PencilDurabilityTest {
         // Instantiate a new pencil.
         this.pencilDurability = new PencilDurability(500, 10, 10);
 
-        // Sample text to write
+        // Sample text to write.
         String text = "How much wood would a woodchuck chuck if a woodchuck could chuck wood?";
         String expectedText = "How much wood would a woodchuck chuck if a chuckwood could chuck wood?";
 
-        // Instruct the pencil to write the sample text
+        // Instruct the pencil to write the sample text.
         this.pencilDurability.write(text);
 
         // Instruct the pencil to erase the string "woodchuck" and insert in "chuckwood"
@@ -337,7 +356,7 @@ public class PencilDurabilityTest {
         String text = "An apple a day keeps the doctor away";
         String expectedText = "An artich@k@ay keeps the doctor away";
 
-        // Instruct the pencil to write the sample text
+        // Instruct the pencil to write the sample text.
         this.pencilDurability.write(text);
 
         // Instruct the pencil to erase the string "woodchuck" and insert in "chuckwood"
