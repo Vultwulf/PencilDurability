@@ -29,7 +29,7 @@ public class PencilDurabilityTest {
     @Test
     public void testPencilWriteSeaShellsWithDurability() {
         // Instantiate a new pencil with 5000 point durability.
-        this.pencilDurability = new PencilDurability(5000);
+        this.pencilDurability = new PencilDurability(5000, 10);
 
         // Sample text to write
         String text = "She sells sea shells sea shells down by the sea shore";
@@ -47,7 +47,7 @@ public class PencilDurabilityTest {
     @Test
     public void testPencilWriteTextWithoutFullDurability() {
         // Instantiate a new pencil with 5 point durability.
-        this.pencilDurability = new PencilDurability(4);
+        this.pencilDurability = new PencilDurability(4, 10);
 
         // Sample text to write
         String text = "Text";
@@ -58,4 +58,29 @@ public class PencilDurabilityTest {
         // The sample text should be the only text currently on the paper.
         assertEquals("Tex ", this.pencilDurability.paper);
     }
+
+    /**
+     * Test sharpening to continue writing after the pencil is dull with more length.
+     */
+    @Test
+    public void testPencilWriteSharpenWriteWithDurabilityAndLength() {
+        // Instantiate a new pencil with 5 point durability.
+        this.pencilDurability = new PencilDurability(22, 10);
+
+        // Sample text to write
+        String text = "She sells sea shells s";
+
+        // Instruct the pencil to write the sample text
+        this.pencilDurability.write(text);
+
+        // Sharpen the pencil
+        this.pencilDurability.sharpen();
+
+        // Instruct the pencil to write the sample text.
+        this.pencilDurability.write(text);
+
+        // The sample text x2 should be the only text currently on the paper
+        assertEquals(text + text, this.pencilDurability.paper);
+    }
+
 }

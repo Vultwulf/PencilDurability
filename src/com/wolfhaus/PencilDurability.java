@@ -19,16 +19,35 @@ public class PencilDurability {
     public String paper = "";
 
     /**
-     * The durability of the pencil point.
+     * The initial durability of the pencil point.
      */
-    public int pointDurability;
+    public int initPointDurability;
+
+    /**
+     * The current durability of the pencil point.
+     */
+    public int curPointDurability;
+
+    /**
+     * The initial length of the pencil.
+     */
+    public int initLength;
+
+    /**
+     * The current length of the pencil.
+     */
+    public int curLength;
 
     /**
      * Constructor Method for a pencil
-     * @param pointDurability int containing the point durability.
+     * @param pointDurability int containing the initial point durability.
+     * @param length int containing the initial pencil length.
      */
-    public PencilDurability(int pointDurability) {
-        this.pointDurability = pointDurability;
+    public PencilDurability(int pointDurability, int length) {
+        this.initPointDurability = pointDurability;
+        this.curPointDurability = pointDurability;
+        this.initLength = length;
+        this.curLength = length;
     }
 
     /**
@@ -41,29 +60,44 @@ public class PencilDurability {
             // Determine if this letter is upper case
             boolean isUpperCase = Character.isUpperCase(text.charAt(i));
 
-            if(isUpperCase) {
-                if (this.pointDurability >= 2) {
+            if(text.charAt(i) == ' ') {
+                // If this is a space, don't reduce point durability.
+                this.paper += text.charAt(i);
+            }
+            else if(isUpperCase) {
+                if (this.curPointDurability >= 2) {
                     // Append the next letter.
                     this.paper += text.charAt(i);
 
                     // Deduct two points of durability.
-                    this.pointDurability -= 2;
+                    this.curPointDurability -= 2;
                 } else {
                     // Append a space.
                     this.paper += ' ';
                 }
             } else {
-                if (this.pointDurability >= 1) {
+                if (this.curPointDurability >= 1) {
                     // Append the next letter.
                     this.paper += text.charAt(i);
 
                     // Deduct one points of durability.
-                    this.pointDurability -= 1;
+                    this.curPointDurability -= 1;
                 } else {
                     // Append a space.
                     this.paper += ' ';
                 }
             }
+        }
+    }
+
+    /**
+     * Method to sharpen the pencil
+     */
+    public void sharpen() {
+        // Set the current point durability to the initial point durability if the length is over 0.
+        if(this.curLength > 0) {
+            this.curPointDurability = this.initPointDurability;
+            this.curLength -= 1;
         }
     }
 }
