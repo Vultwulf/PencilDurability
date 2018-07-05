@@ -46,7 +46,7 @@ public class PencilDurabilityTest {
      */
     @Test
     public void testPencilWriteTextWithoutFullDurability() {
-        // Instantiate a new pencil with 5 point durability.
+        // Instantiate a new pencil.
         this.pencilDurability = new PencilDurability(4, 10);
 
         // Sample text to write
@@ -64,7 +64,7 @@ public class PencilDurabilityTest {
      */
     @Test
     public void testPencilWriteSharpenWriteWithDurabilityAndLength() {
-        // Instantiate a new pencil with 5 point durability.
+        // Instantiate a new pencil.
         this.pencilDurability = new PencilDurability(22, 10);
 
         // Sample text to write
@@ -76,11 +76,26 @@ public class PencilDurabilityTest {
         // Sharpen the pencil
         this.pencilDurability.sharpen();
 
-        // Instruct the pencil to write the sample text.
+        // Instruct the pencil to write the sample text
         this.pencilDurability.write(text);
 
         // The sample text x2 should be the only text currently on the paper
         assertEquals(text + text, this.pencilDurability.paper);
+    }
+
+    /**
+     * Make sure the length is reduced when the pencil is sharpened.
+     */
+    @Test
+    public void testPencilSharpenLengthReduction() {
+        // Instantiate a new pencil.
+        this.pencilDurability = new PencilDurability(22, 10);
+
+        // Sharpen the pencil
+        this.pencilDurability.sharpen();
+
+        // The sample text x2 should be the only text currently on the paper
+        assertEquals(9, this.pencilDurability.curLength);
     }
 
     /**
