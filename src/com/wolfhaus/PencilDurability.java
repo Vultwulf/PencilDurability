@@ -131,35 +131,38 @@ public class PencilDurability {
         // Find the first character of where last occurrence of a string is in the text.
         int charIndex = this.paper.lastIndexOf(string);
 
-        // Convert the paper to a char array for easy editing.
-        char[] editPaper = this.paper.toCharArray();
+        // Only process erasure if the word was actually found.
+        if(charIndex != -1) {
+            // Convert the paper to a char array for easy editing.
+            char[] editPaper = this.paper.toCharArray();
 
-        // Loop through the last instance of the found string and erase
-        for(int i = charIndex + string.length() - 1; i >= charIndex; i--) {
-            // If there is eraser durability, erase a letter.
-            if(eraserDurability > 0) {
-                editPaper[i] = ' ';
-                this.eraserDurability--;
-            }
-        }
-
-        // If the new string exists, replace it on the paper,
-        if(newString.length() > 0) {
-            int j = 0;
-            // Insert the new string into the old string's place
-            for (int i = charIndex; i < charIndex + newString.length(); i++) {
-                if(processCharacter(newString.charAt(j))) {
-                    if(editPaper[i] == ' ') {
-                        editPaper[i] = newString.charAt(j);
-                    } else {
-                        editPaper[i] = '@';
-                    }
+            // Loop through the last instance of the found string and erase
+            for (int i = charIndex + string.length() - 1; i >= charIndex; i--) {
+                // If there is eraser durability, erase a letter.
+                if (eraserDurability > 0) {
+                    editPaper[i] = ' ';
+                    this.eraserDurability--;
                 }
-                j++;
             }
-        }
 
-        // Set the paper to the new value after erasing
-        this.paper = String.valueOf(editPaper);
+            // If the new string exists, replace it on the paper,
+            if (newString.length() > 0) {
+                int j = 0;
+                // Insert the new string into the old string's place
+                for (int i = charIndex; i < charIndex + newString.length(); i++) {
+                    if (processCharacter(newString.charAt(j))) {
+                        if (editPaper[i] == ' ') {
+                            editPaper[i] = newString.charAt(j);
+                        } else {
+                            editPaper[i] = '@';
+                        }
+                    }
+                    j++;
+                }
+            }
+
+            // Set the paper to the new value after erasing
+            this.paper = String.valueOf(editPaper);
+        }
     }
 }

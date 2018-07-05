@@ -166,6 +166,27 @@ public class PencilDurabilityTest {
     }
 
     /**
+     * Make sure a word can be erased
+     */
+    @Test
+    public void testPencilEraseNonexistentWord() {
+        // Instantiate a new pencil.
+        this.pencilDurability = new PencilDurability(5000, 10, 10);
+
+        // Sample text to write
+        String text = "How much wood would a woodchuck chuck if a woodchuck could chuck wood?";
+        String newText = "How much wood would a woodchuck chuck if a woodchuck could chuck wood?";
+
+        // Instruct the pencil to write the sample text
+        this.pencilDurability.write(text);
+
+        // Instruct the pencil to erase the string "chuck"
+        this.pencilDurability.erase("blueberry");
+
+        assertEquals(newText, this.pencilDurability.paper);
+    }
+
+    /**
      * Test erasing the same word twice.
      */
     @Test
