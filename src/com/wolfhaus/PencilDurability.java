@@ -29,6 +29,11 @@ public class PencilDurability {
     public int curPointDurability;
 
     /**
+     * The durability of the eraser.
+     */
+    public int eraserDurability;
+
+    /**
      * The initial length of the pencil.
      */
     public int initLength;
@@ -42,12 +47,14 @@ public class PencilDurability {
      * Constructor Method for a pencil
      * @param pointDurability int containing the initial point durability.
      * @param length int containing the initial pencil length.
+     * @param eraserDurability int containing the initial eraser durability.
      */
-    public PencilDurability(int pointDurability, int length) {
+    public PencilDurability(int pointDurability, int length, int eraserDurability) {
         this.initPointDurability = pointDurability;
         this.curPointDurability = pointDurability;
         this.initLength = length;
         this.curLength = length;
+        this.eraserDurability = eraserDurability;
     }
 
     /**
@@ -107,14 +114,17 @@ public class PencilDurability {
     public void erase(String string) {
         // Find the first character of where last occurrence of a string is in the text.
         int charIndex = this.paper.lastIndexOf(string);
-        System.out.println(this.paper.charAt(59));
 
         // Convert the paper to a char array for easy editing.
         char[] editPaper = this.paper.toCharArray();
 
         // Loop through the last instance of the found string and erase
-        for(int i = charIndex; i < charIndex + string.length(); i++) {
-            editPaper[i] = ' ';
+        for(int i = charIndex + string.length() - 1; i >= charIndex; i--) {
+            // If there is eraser durability, erase a letter.
+            if(eraserDurability > 0) {
+                editPaper[i] = ' ';
+                this.eraserDurability--;
+            }
         }
 
         // Set the paper to the new value after erasing

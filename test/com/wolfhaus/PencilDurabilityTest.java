@@ -29,7 +29,7 @@ public class PencilDurabilityTest {
     @Test
     public void testPencilWriteSeaShellsWithDurability() {
         // Instantiate a new pencil with 5000 point durability.
-        this.pencilDurability = new PencilDurability(5000, 10);
+        this.pencilDurability = new PencilDurability(5000, 10, 10);
 
         // Sample text to write
         String text = "She sells sea shells sea shells down by the sea shore";
@@ -47,7 +47,7 @@ public class PencilDurabilityTest {
     @Test
     public void testPencilWriteTextWithoutFullDurability() {
         // Instantiate a new pencil.
-        this.pencilDurability = new PencilDurability(4, 10);
+        this.pencilDurability = new PencilDurability(4, 10, 10);
 
         // Sample text to write
         String text = "Text";
@@ -65,7 +65,7 @@ public class PencilDurabilityTest {
     @Test
     public void testPencilWriteSharpenWriteWithDurabilityAndLength() {
         // Instantiate a new pencil.
-        this.pencilDurability = new PencilDurability(22, 10);
+        this.pencilDurability = new PencilDurability(22, 10, 10);
 
         // Sample text to write
         String text = "She sells sea shells s";
@@ -89,7 +89,7 @@ public class PencilDurabilityTest {
     @Test
     public void testPencilWriteSharpenWriteWithDurabilityAndNoLength() {
         // Instantiate a new pencil with 5 point durability.
-        this.pencilDurability = new PencilDurability(22, 0);
+        this.pencilDurability = new PencilDurability(22, 0, 10);
 
         // Sample text to write
         String text = "She sells sea shells sea s";
@@ -114,7 +114,7 @@ public class PencilDurabilityTest {
     @Test
     public void testPencilSharpenLengthReduction() {
         // Instantiate a new pencil.
-        this.pencilDurability = new PencilDurability(22, 10);
+        this.pencilDurability = new PencilDurability(22, 10, 10);
 
         // Sharpen the pencil
         this.pencilDurability.sharpen();
@@ -129,7 +129,7 @@ public class PencilDurabilityTest {
     @Test
     public void testPencilSharpenPointDurabilityReset() {
         // Instantiate a new pencil.
-        this.pencilDurability = new PencilDurability(22, 10);
+        this.pencilDurability = new PencilDurability(22, 10, 10);
 
         // Sample text to write
         String text = "She sells sea shells s";
@@ -150,7 +150,7 @@ public class PencilDurabilityTest {
     @Test
     public void testPencilEraseChuck() {
         // Instantiate a new pencil.
-        this.pencilDurability = new PencilDurability(5000, 10);
+        this.pencilDurability = new PencilDurability(5000, 10, 10);
 
         // Sample text to write
         String text = "How much wood would a woodchuck chuck if a woodchuck could chuck wood?";
@@ -159,7 +159,7 @@ public class PencilDurabilityTest {
         // Instruct the pencil to write the sample text
         this.pencilDurability.write(text);
 
-        // Instruct the pencil to write the sample text
+        // Instruct the pencil to erase the string "chuck"
         this.pencilDurability.erase("chuck");
 
         assertEquals(newText, this.pencilDurability.paper);
@@ -171,21 +171,42 @@ public class PencilDurabilityTest {
     @Test
     public void testPencilEraseChuckAgain() {
         // Instantiate a new pencil.
-        this.pencilDurability = new PencilDurability(5000, 10);
+        this.pencilDurability = new PencilDurability(5000, 10, 10);
 
         // Sample text to write
         String text = "How much wood would a woodchuck chuck if a woodchuck could chuck wood?";
-        String newText = "How much wood would a woodchuck chuck if a wood      could       wood?";
+        String expectedText = "How much wood would a woodchuck chuck if a wood      could       wood?";
 
         // Instruct the pencil to write the sample text
         this.pencilDurability.write(text);
 
-        // Instruct the pencil to write the sample text
+        // Instruct the pencil to erase the string "chuck"
         this.pencilDurability.erase("chuck");
 
-        // Instruct the pencil to write the sample text
+        // Instruct the pencil to erase the string "chuck"
         this.pencilDurability.erase("chuck");
 
-        assertEquals(newText, this.pencilDurability.paper);
+        assertEquals(expectedText, this.pencilDurability.paper);
+    }
+
+    /**
+     * Test the eraser durability
+     */
+    @Test
+    public void testPencilEraseWoodchuckWithoutEnoughDurability() {
+        // Instantiate a new pencil.
+        this.pencilDurability = new PencilDurability(5000, 10, 8);
+
+        // Sample text to write
+        String text = "How much wood would a woodchuck chuck if a woodchuck could chuck wood?";
+        String expectedText = "How much wood would a woodchuck chuck if a w         could chuck wood?";
+
+        // Instruct the pencil to write the sample text
+        this.pencilDurability.write(text);
+
+        // Instruct the pencil to erase the string "woodchuck"
+        this.pencilDurability.erase("woodchuck");
+
+        assertEquals(expectedText, this.pencilDurability.paper);
     }
 }
