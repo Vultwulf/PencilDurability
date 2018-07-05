@@ -84,6 +84,31 @@ public class PencilDurabilityTest {
     }
 
     /**
+     * Test sharpening to continue writing after the pencil is dull with no more length.
+     */
+    @Test
+    public void testPencilWriteSharpenWriteWithDurabilityAndNoLength() {
+        // Instantiate a new pencil with 5 point durability.
+        this.pencilDurability = new PencilDurability(22, 0);
+
+        // Sample text to write
+        String text = "She sells sea shells sea s";
+
+        // Instruct the pencil to write the sample text
+        this.pencilDurability.write(text);
+
+        // Sharpen the pencil
+        this.pencilDurability.sharpen();
+
+        // Instruct the pencil to write the sample text.
+        this.pencilDurability.write(text);
+
+        // The sample text and a second sample text all spaces appears on the paper
+        assertEquals("She sells sea shells sea s                          "
+                , this.pencilDurability.paper);
+    }
+
+    /**
      * Make sure the length is reduced when the pencil is sharpened.
      */
     @Test
@@ -120,27 +145,23 @@ public class PencilDurabilityTest {
     }
 
     /**
-     * Test sharpening to continue writing after the pencil is dull with no more length.
+     * Make sure a word can be erased
      */
     @Test
-    public void testPencilWriteSharpenWriteWithDurabilityAndNoLength() {
-        // Instantiate a new pencil with 5 point durability.
-        this.pencilDurability = new PencilDurability(22, 0);
+    public void testPencilErase() {
+        // Instantiate a new pencil.
+        this.pencilDurability = new PencilDurability(5000, 10);
 
         // Sample text to write
-        String text = "She sells sea shells sea s";
+        String text = "How much wood would a woodchuck chuck if a woodchuck could chuck wood?";
+        String newText = "How much wood would a woodchuck chuck if a woodchuck could       wood?";
 
         // Instruct the pencil to write the sample text
         this.pencilDurability.write(text);
 
-        // Sharpen the pencil
-        this.pencilDurability.sharpen();
+        // Instruct the pencil to write the sample text
+        this.pencilDurability.erase("chuck");
 
-        // Instruct the pencil to write the sample text.
-        this.pencilDurability.write(text);
-
-        // The sample text and a second sample text all spaces appears on the paper
-        assertEquals("She sells sea shells sea s                          "
-                , this.pencilDurability.paper);
+        assertEquals(newText, this.pencilDurability.paper);
     }
 }

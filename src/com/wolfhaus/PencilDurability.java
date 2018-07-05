@@ -100,4 +100,24 @@ public class PencilDurability {
             this.curLength -= 1;
         }
     }
+
+    /**
+     * Method to erase text
+     */
+    public void erase(String string) {
+        // Find the first character of where last occurrence of a string is in the text.
+        int charIndex = this.paper.lastIndexOf(string);
+        System.out.println(this.paper.charAt(59));
+
+        // Convert the paper to a char array for easy editing.
+        char[] editPaper = this.paper.toCharArray();
+
+        // Loop through the last instance of the found string and erase
+        for(int i = charIndex; i < charIndex + string.length(); i++) {
+            editPaper[i] = ' ';
+        }
+
+        // Set the paper to the new value after erasing
+        this.paper = String.valueOf(editPaper);
+    }
 }
