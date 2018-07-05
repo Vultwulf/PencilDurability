@@ -34,14 +34,9 @@ public class PencilDurability {
     public int eraserDurability;
 
     /**
-     * The initial length of the pencil.
+     * The length of the pencil.
      */
-    public int initLength;
-
-    /**
-     * The current length of the pencil.
-     */
-    public int curLength;
+    public int length;
 
     /**
      * Constructor Method for a pencil
@@ -52,8 +47,7 @@ public class PencilDurability {
     public PencilDurability(int pointDurability, int length, int eraserDurability) {
         this.initPointDurability = pointDurability;
         this.curPointDurability = pointDurability;
-        this.initLength = length;
-        this.curLength = length;
+        this.length = length;
         this.eraserDurability = eraserDurability;
     }
 
@@ -62,17 +56,20 @@ public class PencilDurability {
      * @param text string containing text to be written to the paper.
      */
     public void write(String text) {
+        StringBuilder sb = new StringBuilder();
+
         // Check durability before writing the letter to the paper.
         for (int i = 0; i < text.length(); i++) {
             if(processCharacter(text.charAt(i))) {
                 // This character was written.
-                this.paper += text.charAt(i);
+                 sb.append(text.charAt(i));
             } else {
                 // A space was written.
-                this.paper += " ";
+                sb.append(" ");
             }
-
         }
+
+        this.paper += sb.toString();
     }
 
     /**
@@ -110,9 +107,9 @@ public class PencilDurability {
      */
     public void sharpen() {
         // Set the current point durability to the initial point durability if the length is over 0.
-        if(this.curLength > 0) {
+        if(this.length > 0) {
             this.curPointDurability = this.initPointDurability;
-            this.curLength -= 1;
+            this.length -= 1;
         }
     }
 
