@@ -62,7 +62,7 @@ public class PencilDurabilityTest {
      * Make sure space characters don't use durability
      */
     @Test
-    public void testPencilDuribilitySpaceCharacter() {
+    public void testPencilDurabilitySpaceCharacter() {
         // Instantiate a new pencil.
         this.pencilDurability = new PencilDurability(4, 10, 10);
 
@@ -80,7 +80,7 @@ public class PencilDurabilityTest {
      * Make sure newline characters don't use durability
      */
     @Test
-    public void testPencilDuribilityNewlineCharacter() {
+    public void testPencilDurabilityNewlineCharacter() {
         // Instantiate a new pencil.
         this.pencilDurability = new PencilDurability(4, 10, 10);
 
@@ -294,7 +294,6 @@ public class PencilDurabilityTest {
 
         // Sample text to write.
         String text = "Buffalo Bill";
-        String expectedText = "Buffalo B   ";
 
         // Instruct the pencil to write the sample text
         this.pencilDurability.write(text);

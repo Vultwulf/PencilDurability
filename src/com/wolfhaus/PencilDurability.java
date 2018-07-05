@@ -16,27 +16,27 @@ public class PencilDurability {
     /**
      * The paper the pencil will write text on.
      */
-    public String paper = "";
+    String paper = "";
 
     /**
      * The initial durability of the pencil point.
      */
-    public int initPointDurability;
+    private final int initPointDurability;
 
     /**
      * The current durability of the pencil point.
      */
-    public int curPointDurability;
+    int curPointDurability;
 
     /**
      * The durability of the eraser.
      */
-    public int eraserDurability;
+    int eraserDurability;
 
     /**
      * The length of the pencil.
      */
-    public int length;
+    int length;
 
     /**
      * Constructor Method for a pencil
